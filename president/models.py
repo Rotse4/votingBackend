@@ -20,14 +20,24 @@ schools = {
 
 }
 
-class President(models.Model):
+# class President(models.Model):
+#     name = models.CharField(max_length=200)
+#     party =models.CharField(max_length= 100,choices=parties, default="Independent")
+#     # school=models.CharField(choice=parties)
+#     # profile_pic =models.ImageField(upload_to=upload_location, null=False, blank=False)
+#     votes = models.IntegerField(default=0)
+#     # description=models.CharField(max_length=100)
+
+#     def __str__(self):
+#         return self.name[0:50]
+    
+class Candidate(models.Model):
     name = models.CharField(max_length=200)
     party =models.CharField(max_length= 100,choices=parties, default="Independent")
-    # school=models.CharField(choice=parties)
-    # profile_pic =models.ImageField(upload_to=upload_location, null=False, blank=False)
-    votes = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.name[0:50]
+    seat = models.CharField(max_length=200)
+    school =models.CharField(max_length=200)
+    description = models.TextField()
+    votes=models.IntegerField(default=0)
+    
     
 
