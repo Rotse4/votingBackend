@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view, authentication_classes
 from rest_framework import status
 from django. contrib.auth.models import User
 from rest_framework.response import Response
-from . serializers import RegistrationSerializer
-from .models import Candidate
+from . serializers import RegistrationSerializer, VoterSerializer
+from .models import Candidate,Voter
 
 
 
@@ -43,14 +43,39 @@ def registration(request):
         return Response( serializer.errors)
     
 @api_view(['GET'])
-def vote(request,pk):
-    candidate = Candidate.objects.get(id=pk)
-    serializer =RegistrationSerializer(data=candidate,)
-    candidate.votes+=1
-    if serializer.is_valid():
-        serializer.save
-    else:
-        print("imekataa")
-    return Response({"candidate": serializer.data})
-
+def vote(request, pk):
+    try:
+        candidate = Candidate.objects.get(id=pk)
+    except Candidate.DoesNotExist:
+        return Response(status=404)  # Return a 404 response if candidate doesn't exist
     
+    candidate.votes += 1  # Increase votes by 2
+    candidate.save()  # Save the changes to the existing Candidate object
+    
+    return Response(candidate.votes)
+
+
+@api_view(['POST'])
+def register_voter(request):
+    if request.method == 'POST':
+        name = request.data.get('name')  # Assuming 'name' is the name of the user to be registered
+        reg_no = request.data.get('reg_no')  # Assuming 'reg_no' is the registration number
+        
+        serializer = VoterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(serializer.data)
+        
+        return Response(serializer.errors)
+    
+# class Candidate(models.Model):
+#     name = models.CharField(max_length=200)
+#     party =models.CharField(max_length= 100,choices=parties, default="Independent")
+#     seat = models.CharField(max_length=200)
+#     school =models.CharField(max_length=200)
+#     description = models.TextField()
+#     votes=models.IntegerField(default=0)
+    
+    
+
