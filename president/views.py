@@ -57,17 +57,13 @@ def vote(request, pk):
 
 @api_view(['POST'])
 def register_voter(request):
-    if request.method == 'POST':
-        name = request.data.get('name')  # Assuming 'name' is the name of the user to be registered
-        reg_no = request.data.get('reg_no')  # Assuming 'reg_no' is the registration number
-        
-        serializer = VoterSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-
-            return Response(serializer.data)
-        
-        return Response(serializer.errors)
+    serializer = VoterSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        print("h")
+        return Response(serializer.data)
+    print("from errors")
+    return Response(serializer.errors)
     
 # class Candidate(models.Model):
 #     name = models.CharField(max_length=200)
