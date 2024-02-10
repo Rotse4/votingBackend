@@ -64,6 +64,24 @@ def register_voter(request):
         return Response(serializer.data)
     print("from errors")
     return Response(serializer.errors)
+
+
+@api_view(['POST'])
+def loginPage(request):
+
+    username = request.POST.get('username')
+    password = request.POST.get('[password]')
+
+    try:
+        user = User.objects.get(username=username)
+        
+    except:
+        return Response(status.HTTP_400_BAD_REQUEST)
+    return Response({username})
+
+
+# class Candidate(models.Model):
+
     
 # class Candidate(models.Model):
 #     name = models.CharField(max_length=200)
