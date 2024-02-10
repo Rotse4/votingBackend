@@ -35,26 +35,35 @@ class TokenBuilder:
 
 @api_view(['POST'])
 def registration_view(request):
-    serializer  = RegistrationSerializer(data=request.data)
-    data={}
+    serializer = RegistrationSerializer(data=request.data)
+    data = {}
     if serializer.is_valid():
-        account = serializer.save()
-        # data['response']= "succsssfully registered a new user."
+        regNo = serializer.validated_data.get('regNo')
+        username = serializer.validated_data.get('username')
+        password = serializer.validated_data.get('password')
+
+        # Create the user using the custom manager
+        account = Account.objects.create_user(regNo=regNo, username=username, password=password)
+
+        # You can add additional fields if needed
+
+        # Return response data
         data['regNo'] = account.regNo
         data['username'] = account.username
         data['id'] = account.pk
 
-        access_token=TokenBuilder.accessToken(payload=data)
+        # Generate tokens if needed
+        # access_token = TokenBuilder.accessToken(payload=data)
+        # refresh_token = TokenBuilder.refreshToken(payload=data)
 
-        refresh_token=TokenBuilder.refreshToken(payload=data)
+        # In this example, let's assume you're not using tokens for simplicity
 
-        secret_key = 'your_secret_key'
-
-        return Response({'payload':{'user':data,'token':{'access_token':access_token, 'refresh_token': refresh_token}}})
+        return Response({'payload': {'user': data}})
     else:
         data = serializer.errors
-        
+
     return Response(data, status=400)
+
 
 @api_view(['GET'])
 def getRoutes(request):

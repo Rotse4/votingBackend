@@ -1,21 +1,10 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from django.conf import settings
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-# from rest_framework.authtoken.models import Token
-from django.contrib.auth.models import BaseUserManager
-
-
-# Create your models here.
 
 class MyAccountManager(BaseUserManager):
     def create_user(self, regNo, username, password=None):
         if not regNo:
-            raise ValueError("Users must have RegNO ")
+            raise ValueError("Users must have a registration number")
         if not username:
             raise ValueError("Users must have a username")
 
@@ -40,7 +29,7 @@ class MyAccountManager(BaseUserManager):
         return user
 
 class Account(AbstractBaseUser):
-    regNo = models.EmailField(max_length=60, unique=True)
+    regNo = models.CharField(verbose_name='registration number', max_length=60, unique=True)
     username = models.CharField(max_length=30, unique=True)
     date_joined = models.DateField(verbose_name='date joined', auto_now_add=True)
     last_login = models.DateField(verbose_name='last login', auto_now=True)
@@ -52,21 +41,13 @@ class Account(AbstractBaseUser):
     USERNAME_FIELD = 'regNo'
     REQUIRED_FIELDS = ['username']
 
-    objects =MyAccountManager()
+    objects = MyAccountManager()
 
     def __str__(self):
-        return self.regNo + ' '+ self.username
-    
+        return self.regNo + ' ' + self.username
 
     def has_perm(self, perm, obj=None):
         return self.is_admin
     
     def has_module_perms(self, app_lebel):
         return True
-    
-    
-   
-# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-# def create_auth_token(sender, instance=None, created=False, **kwargs):
-#     if created:
-#         Token.objects.create(user=instance)
