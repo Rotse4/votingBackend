@@ -21,29 +21,20 @@ schools = {
 
 }
 
-# class President(models.Model):
-#     name = models.CharField(max_length=200)
-#     party =models.CharField(max_length= 100,choices=parties, default="Independent")
-#     # school=models.CharField(choice=parties)
-#     # profile_pic =models.ImageField(upload_to=upload_location, null=False, blank=False)
-#     votes = models.IntegerField(default=0)
-#     # description=models.CharField(max_length=100)
+def upload_location(instance, filename):
+    file_path = 'images/{name_id}/{party}-{filename}'.format(
+        owner_id=str(instance.name.id),
+        title=str(instance.party),
+        filename=filename
 
-#     def __str__(self):
-#         return self.name[0:50]
-# class Voter(models.Model):
-#     name = models.ForeignKey(User, on_delete=models.CASCADE)
-#     # vote=models.ForeignKey(Candidate, on_delete=models.DO_NOTHING)
-#     voted= models.BooleanField(default=False)
-#     regNo= models.CharField(max_length=50)
-
-#     def __str__(self):
-#         return self.name
+    )
+    return file_path
     
 class Candidate(models.Model):
     name = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     party =models.CharField(max_length= 100,choices=parties, default="Independent")
     seat = models.CharField(max_length=200)
+    image = models.ImageField(upload_to=upload_location, null=False, blank=False)
     school =models.CharField(max_length=200, null=True,blank=True)
     description = models.TextField()
     votes=models.IntegerField(default=0)

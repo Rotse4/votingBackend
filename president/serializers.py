@@ -5,5 +5,5 @@ from . models import Candidate
 class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Candidate
-        fields = ['id','name', 'party','votes','description', 'school']
+        fields = ['id','name', 'image','party','votes','description', 'school']
 
