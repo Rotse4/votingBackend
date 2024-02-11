@@ -23,8 +23,8 @@ schools = {
 
 def upload_location(instance, filename):
     file_path = 'images/{name_id}/{party}-{filename}'.format(
-        owner_id=str(instance.name.id),
-        title=str(instance.party),
+        name_id=str(instance.name.id),
+        party=str(instance.party),
         filename=filename
 
     )
@@ -40,7 +40,7 @@ class Candidate(models.Model):
     votes=models.IntegerField(default=0)
 
     def __str__(self):
-        return self.name + self.seat
+        return str(self.name) + ' ' + str(self.seat)
     
     
 

@@ -9,38 +9,6 @@ from . serializers import RegistrationSerializer
 from .models import Candidate
 
 
-
-# @api_view(['POST'])
-# def registration(request):
-#     print(request.data)
-#     name = request.data.get('name')
-#     print(name)
-#     serializer = RegistrationSerializer(data=request.data)
-#     if serializer.is_valid():
-#         serializer.save()
-#         # print(presidentD.name)
-#         return Response(serializer.data)
-#     else:
-#         print("shenzi")
-
-#         return Response( serializer.errors)
-    
-
-
-@api_view(['POST'])
-def registration(request):
-    print(request.data)
-    name = request.data.get('name')
-    print(name)
-    serializer = RegistrationSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        # print(presidentD.name)
-        return Response(serializer.data)
-    else:
-        print("shenzi")
-
-        return Response( serializer.errors)
     
 @api_view(['GET'])
 def vote(request, pk):
@@ -52,44 +20,8 @@ def vote(request, pk):
     candidate.votes += 1  # Increase votes by 2
     candidate.save()  # Save the changes to the existing Candidate object
     
-    return Response(candidate.votes)
+    return Response({"name": candidate.name.username,"votes":candidate.votes})
 
 
-@api_view(['POST'])
-def register_voter(request):
-    serializer = VoterSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        print("h")
-        return Response(serializer.data)
-    print("from errors")
-    return Response(serializer.errors)
 
-
-@api_view(['POST'])
-def loginPage(request):
-
-    username = request.POST.get('username')
-    password = request.POST.get('[password]')
-
-    try:
-        user = User.objects.get(username=username)
-        
-    except:
-        return Response(status.HTTP_400_BAD_REQUEST)
-    return Response({username})
-
-
-# class Candidate(models.Model):
-
-    
-# class Candidate(models.Model):
-#     name = models.CharField(max_length=200)
-#     party =models.CharField(max_length= 100,choices=parties, default="Independent")
-#     seat = models.CharField(max_length=200)
-#     school =models.CharField(max_length=200)
-#     description = models.TextField()
-#     votes=models.IntegerField(default=0)
-    
-    
 
