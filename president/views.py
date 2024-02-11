@@ -23,7 +23,7 @@ def vote(request, pk):
     candidate.votes += 1  # Increase votes by 2
     candidate.save()  # Save the changes to the existing Candidate object
     
-    return Response({"name": candidate.name.username,"votes":candidate.votes})
+    return Response({"name": candidate.account.username,"votes":candidate.votes})
 
 
 @api_view(['GET'])
