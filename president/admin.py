@@ -8,7 +8,7 @@ from django.utils.text import Truncator
 
 class CandidateAdmin(admin.ModelAdmin):
     model = Candidate
-    list_display = ('id', 'name', 'party', 'seat', 'school', 'get_image', 'short_description', 'description', 'votes')
+    list_display = ('id', 'ballotName', 'party', 'seat', 'school', 'get_image', 'short_description', 'description', 'votes')
 
     def get_image(self, obj):
         return format_html('<img src="{}" width="50" height="50" />', obj.image.url)
