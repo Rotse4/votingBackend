@@ -5,8 +5,9 @@ from rest_framework.decorators import api_view, authentication_classes
 from rest_framework import status
 from django. contrib.auth.models import User
 from rest_framework.response import Response
-from . serializers import RegistrationSerializer
+from . serializers import CandidateSerializer
 from .models import Candidate
+from django.db.models import Q
 
 
     
@@ -23,5 +24,10 @@ def vote(request, pk):
     return Response({"name": candidate.name.username,"votes":candidate.votes})
 
 
+@api_view(['GET'])
+def reps(request):
+    reps = Candidate.objects.filter(Q(seat="SCHOOL_REP"))
+    serializer = CandidateSerializer(reps, many=True)
 
+    return Response({"School reps":serializer.data})
 
