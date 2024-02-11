@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view, authentication_classes
 from rest_framework import status
 from django. contrib.auth.models import User
 from rest_framework.response import Response
-from . serializers import RegistrationSerializer, VoterSerializer
-from .models import Candidate,Voter
+from . serializers import RegistrationSerializer
+from .models import Candidate
 
 
 

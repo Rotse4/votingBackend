@@ -1,5 +1,6 @@
+from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -30,17 +31,17 @@ schools = {
 
 #     def __str__(self):
 #         return self.name[0:50]
-class Voter(models.Model):
-    name = models.ForeignKey(User, on_delete=models.CASCADE)
-    # vote=models.ForeignKey(Candidate, on_delete=models.DO_NOTHING)
-    voted= models.BooleanField(default=False)
-    regNo= models.CharField(max_length=50)
+# class Voter(models.Model):
+#     name = models.ForeignKey(User, on_delete=models.CASCADE)
+#     # vote=models.ForeignKey(Candidate, on_delete=models.DO_NOTHING)
+#     voted= models.BooleanField(default=False)
+#     regNo= models.CharField(max_length=50)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
     
 class Candidate(models.Model):
-    name = models.ForeignKey(Voter, on_delete=models.CASCADE)
+    name = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     party =models.CharField(max_length= 100,choices=parties, default="Independent")
     seat = models.CharField(max_length=200)
     school =models.CharField(max_length=200, null=True,blank=True)
