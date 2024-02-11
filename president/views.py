@@ -5,6 +5,8 @@ from rest_framework.decorators import api_view, authentication_classes
 from rest_framework import status
 from django. contrib.auth.models import User
 from rest_framework.response import Response
+
+from account.models import Account
 from . serializers import CandidateSerializer
 from .models import Candidate
 from django.db.models import Q
@@ -28,6 +30,26 @@ def vote(request, pk):
 def reps(request):
     reps = Candidate.objects.filter(Q(seat="SCHOOL_REP"))
     serializer = CandidateSerializer(reps, many=True)
+    # name = Account.objects.get(id=4)
+    return Response({"School reps":serializer.data, "name":"name"})
 
-    return Response({"School reps":serializer.data})
+@api_view(['GET'])
+def pesidents(request):
+    reps = Candidate.objects.filter(Q(seat="PRESIDENT"))
+    serializer = CandidateSerializer(reps, many=True)
+    # name = Account.objects.get(id=4)
+    return Response({"Presidents":serializer.data})
 
+@api_view(['GET'])
+def wemenRep(request):
+    reps = Candidate.objects.filter(Q(seat="WOMEN_REP"))
+    serializer = CandidateSerializer(reps, many=True)
+    # name = Account.objects.get(id=4)
+    return Response({"Women reps":serializer.data})
+
+@api_view(['GET'])
+def menRep(request):
+    reps = Candidate.objects.filter(Q(seat="MEN_REP"))
+    serializer = CandidateSerializer(reps, many=True)
+    # name = Account.objects.get(id=4)
+    return Response({"men reps":serializer.data})

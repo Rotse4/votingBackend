@@ -24,7 +24,9 @@ schools = {
 seats = {
     ("PRESIDENT", "President"),
     ("SCHOOL_REP", "SchoolRep"),
-    ("WOMENS_REP","WomenRep")
+    ("WOMENS_REP","WomenRep"),
+    ("MEN_REP","MenRep"),
+    
 }
 
 def upload_location(instance, filename):
@@ -46,7 +48,7 @@ class Candidate(models.Model):
     votes=models.IntegerField(default=0)
 
     def __str__(self):
-        return str(self.name.username) + ' ' + str(self.seat)
+        return str(self.name) + ' ' + str(self.seat)
     
     
 
