@@ -42,7 +42,7 @@ def pesidents(request):
 
 @api_view(['GET'])
 def wemenRep(request):
-    reps = Candidate.objects.filter(Q(seat="WOMEN_REP"))
+    reps = Candidate.objects.filter(Q(seat="WOMENS_REP"))
     serializer = CandidateSerializer(reps, many=True)
     # name = Account.objects.get(id=4)
     return Response({"Women reps":serializer.data})

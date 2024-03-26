@@ -1,0 +1,35 @@
+{
+	"folders": {},
+	"connections": {
+		"sqlite_jdbc-18e4121c0e9-13165e42d9931752": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "db.sqlite3",
+			"save-password": true,
+			"configuration": {
+				"database": "/home/paul/studio projects/votingBackend/db.sqlite3",
+				"url": "jdbc:sqlite:/home/paul/studio projects/votingBackend/db.sqlite3",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"smart-commit": false,
+			"smart-commit-recover": false,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800,
+			"auto-close-connections": true,
+			"close-connections-period": 14400
+		}
+	}
+}

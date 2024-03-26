@@ -8,7 +8,7 @@ class MyAccountManager(BaseUserManager):
         if not username:
             raise ValueError("Users must have a username")
 
-        user = self.model(
+        user = self.mrodel(
             regNo=regNo,
             username=username,
         )
